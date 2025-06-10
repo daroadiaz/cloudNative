@@ -1,0 +1,140 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="custom-card fade-in">
+        <h2 class="mb-4">
+          <i class="fas fa-{{ isEditMode ? 'edit' : 'plus-circle' }} me-2"></i>
+          {{ titulo }}
+        </h2>
+
+        <form [formGroup]="instrumentoForm" (ngSubmit)="onSubmit()">
+          <!-- Nombre -->
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre del Instrumento *</label>
+            <input
+              type="text"
+              class="form-control form-control-custom"
+              id="nombre"
+              formControlName="nombre"
+              placeholder="Ej: Stratocaster, Les Paul..."
+              [class.is-invalid]="f.nombre.touched && f.nombre.errors"
+            >
+            <div *ngIf="f.nombre.touched && f.nombre.errors" class="text-danger small mt-1">
+              <div *ngIf="f.nombre.errors.required">El nombre es requerido</div>
+              <div *ngIf="f.nombre.errors.minlength">El nombre debe tener al menos 3 caracteres</div>
+              <div *ngIf="f.nombre.errors.maxlength">El nombre no puede exceder 100 caracteres</div>
+            </div>
+          </div>
+
+          <!-- Marca -->
+          <div class="mb-3">
+            <label for="marca" class="form-label">Marca *</label>
+            <input
+              type="text"
+              class="form-control form-control-custom"
+              id="marca"
+              formControlName="marca"
+              placeholder="Ej: Fender, Gibson, Yamaha..."
+              [class.is-invalid]="f.marca.touched && f.marca.errors"
+            >
+            <div *ngIf="f.marca.touched && f.marca.errors" class="text-danger small mt-1">
+              <div *ngIf="f.marca.errors.required">La marca es requerida</div>
+              <div *ngIf="f.marca.errors.minlength">La marca debe tener al menos 2 caracteres</div>
+              <div *ngIf="f.marca.errors.maxlength">La marca no puede exceder 50 caracteres</div>
+            </div>
+          </div>
+
+          <!-- Tipo -->
+          <div class="mb-3">
+            <label for="tipo" class="form-label">Tipo de Instrumento *</label>
+            <select
+              class="form-select form-control-custom"
+              id="tipo"
+              formControlName="tipo"
+              [class.is-invalid]="f.tipo.touched && f.tipo.errors"
+            >
+              <option value="">Seleccione un tipo...</option>
+              <option *ngFor="let tipo of tiposInstrumento" [value]="tipo">{{ tipo }}</option>
+            </select>
+            <div *ngIf="f.tipo.touched && f.tipo.errors" class="text-danger small mt-1">
+              <div *ngIf="f.tipo.errors.required">El tipo es requerido</div>
+            </div>
+          </div>
+
+          <!-- Precio y Stock -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="precio" class="form-label">Precio (USD) *</label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input
+                  type="number"
+                  class="form-control form-control-custom"
+                  id="precio"
+                  formControlName="precio"
+                  placeholder="0.00"
+                  step="0.01"
+                  [class.is-invalid]="f.precio.touched && f.precio.errors"
+                >
+              </div>
+              <div *ngIf="f.precio.touched && f.precio.errors" class="text-danger small mt-1">
+                <div *ngIf="f.precio.errors.required">El precio es requerido</div>
+                <div *ngIf="f.precio.errors.min">El precio debe ser mayor a 0</div>
+                <div *ngIf="f.precio.errors.max">El precio no puede exceder 999,999</div>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="stock" class="form-label">Stock *</label>
+              <div class="input-group">
+                <input
+                  type="number"
+                  class="form-control form-control-custom"
+                  id="stock"
+                  formControlName="stock"
+                  placeholder="0"
+                  [class.is-invalid]="f.stock.touched && f.stock.errors"
+                >
+                <span class="input-group-text">unidades</span>
+              </div>
+              <div *ngIf="f.stock.touched && f.stock.errors" class="text-danger small mt-1">
+                <div *ngIf="f.stock.errors.required">El stock es requerido</div>
+                <div *ngIf="f.stock.errors.min">El stock no puede ser negativo</div>
+                <div *ngIf="f.stock.errors.max">El stock no puede exceder 9,999</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botones -->
+          <div class="d-flex gap-2 mt-4">
+            <button
+              type="submit"
+              class="btn btn-custom-primary"
+              [disabled]="loading"
+            >
+              <span *ngIf="!loading">
+                <i class="fas fa-save me-2"></i>
+                {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+              </span>
+              <span *ngIf="loading">
+                <i class="fas fa-spinner fa-spin me-2"></i>
+                Guardando...
+              </span>
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="cancelar()"
+              [disabled]="loading"
+            >
+              <i class="fas fa-times me-2"></i>
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

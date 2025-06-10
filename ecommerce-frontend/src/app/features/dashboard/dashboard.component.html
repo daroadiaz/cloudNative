@@ -1,0 +1,108 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-4">
+  <h1 class="mb-4">
+    <i class="fas fa-tachometer-alt me-2"></i>
+    Dashboard
+  </h1>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-center py-5">
+    <i class="fas fa-spinner fa-spin fa-3x text-primary"></i>
+    <p class="mt-3">Cargando datos...</p>
+  </div>
+
+  <!-- Estadísticas -->
+  <div *ngIf="!loading" class="row mb-4 fade-in">
+    <div class="col-md-3 mb-3">
+      <div class="stat-card primary">
+        <i class="fas fa-guitar fa-3x mb-3 text-primary"></i>
+        <h3 class="fw-bold">{{ totalInstrumentos }}</h3>
+        <p class="text-muted mb-0">Total Instrumentos</p>
+      </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+      <div class="stat-card success">
+        <i class="fas fa-boxes fa-3x mb-3 text-success"></i>
+        <h3 class="fw-bold">{{ totalStock }}</h3>
+        <p class="text-muted mb-0">Stock Total</p>
+      </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+      <div class="stat-card warning">
+        <i class="fas fa-dollar-sign fa-3x mb-3 text-warning"></i>
+        <h3 class="fw-bold">${{ valorInventario | number:'1.2-2' }}</h3>
+        <p class="text-muted mb-0">Valor Inventario</p>
+      </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+      <div class="stat-card danger">
+        <i class="fas fa-chart-line fa-3x mb-3 text-danger"></i>
+        <h3 class="fw-bold">{{ instrumentosMasRecientes.length }}</h3>
+        <p class="text-muted mb-0">Últimos Agregados</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Acciones rápidas -->
+  <div *ngIf="!loading" class="custom-card fade-in">
+    <h3 class="mb-4">
+      <i class="fas fa-bolt me-2"></i>
+      Acciones Rápidas
+    </h3>
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <button class="btn btn-custom-primary w-100" routerLink="/instrumentos">
+          <i class="fas fa-list me-2"></i>
+          Ver Todos los Instrumentos
+        </button>
+      </div>
+      <div class="col-md-6 mb-3">
+        <button class="btn btn-success w-100" routerLink="/instrumento/nuevo">
+          <i class="fas fa-plus-circle me-2"></i>
+          Agregar Nuevo Instrumento
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Últimos instrumentos -->
+  <div *ngIf="!loading && instrumentosMasRecientes.length > 0" class="custom-card fade-in">
+    <h3 class="mb-4">
+      <i class="fas fa-clock me-2"></i>
+      Últimos Instrumentos Agregados
+    </h3>
+    <div class="table-responsive">
+      <table class="table table-custom">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Marca</th>
+            <th>Tipo</th>
+            <th>Precio</th>
+            <th>Stock</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let instrumento of instrumentosMasRecientes">
+            <td>{{ instrumento.nombre }}</td>
+            <td>{{ instrumento.marca }}</td>
+            <td>{{ instrumento.tipo }}</td>
+            <td>${{ instrumento.precio | number:'1.2-2' }}</td>
+            <td>
+              <span class="badge" 
+                    [ngClass]="{'bg-success': instrumento.stock > 10, 
+                               'bg-warning': instrumento.stock > 5 && instrumento.stock <= 10,
+                               'bg-danger': instrumento.stock <= 5}">
+                {{ instrumento.stock }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

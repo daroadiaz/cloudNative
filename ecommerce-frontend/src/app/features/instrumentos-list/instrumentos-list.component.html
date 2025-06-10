@@ -1,0 +1,122 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-4">
+  <div class="row mb-4">
+    <div class="col">
+      <h1>
+        <i class="fas fa-guitar me-2"></i>
+        Gestión de Instrumentos
+      </h1>
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-custom-primary" routerLink="/instrumento/nuevo">
+        <i class="fas fa-plus-circle me-2"></i>
+        Nuevo Instrumento
+      </button>
+    </div>
+  </div>
+
+  <!-- Mensaje de alerta -->
+  <div *ngIf="mensaje" class="alert alert-{{ tipoMensaje }} alert-dismissible fade show alert-custom" role="alert">
+    <i class="fas fa-{{ tipoMensaje === 'success' ? 'check-circle' : 'exclamation-circle' }} me-2"></i>
+    {{ mensaje }}
+  </div>
+
+  <!-- Barra de búsqueda -->
+  <div class="custom-card mb-4 fade-in">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="fas fa-search"></i>
+          </span>
+          <input
+            type="text"
+            class="form-control form-control-custom"
+            placeholder="Buscar por nombre, marca o tipo..."
+            [(ngModel)]="searchTerm"
+            (keyup)="buscar()"
+          >
+        </div>
+      </div>
+      <div class="col-md-6 text-md-end mt-3 mt-md-0">
+        <span class="text-muted">
+          <i class="fas fa-filter me-1"></i>
+          Mostrando {{ instrumentosFiltrados.length }} de {{ instrumentos.length }} instrumentos
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-center py-5">
+    <i class="fas fa-spinner fa-spin fa-3x text-primary"></i>
+    <p class="mt-3">Cargando instrumentos...</p>
+  </div>
+
+  <!-- Tabla de instrumentos -->
+  <div *ngIf="!loading && instrumentosFiltrados.length > 0" class="fade-in">
+    <div class="table-responsive">
+      <table class="table table-custom">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Marca</th>
+            <th>Tipo</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let instrumento of instrumentosFiltrados">
+            <td>{{ instrumento.id }}</td>
+            <td>
+              <i class="fas fa-music me-2 text-primary"></i>
+              {{ instrumento.nombre }}
+            </td>
+            <td>{{ instrumento.marca }}</td>
+            <td>
+              <span class="badge bg-info">{{ instrumento.tipo }}</span>
+            </td>
+            <td>${{ instrumento.precio | number:'1.2-2' }}</td>
+            <td>
+              <span class="badge" 
+                    [ngClass]="{'bg-success': instrumento.stock > 10, 
+                               'bg-warning': instrumento.stock > 5 && instrumento.stock <= 10,
+                               'bg-danger': instrumento.stock <= 5}">
+                {{ instrumento.stock }} unidades
+              </span>
+            </td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-primary me-2" 
+                      (click)="editarInstrumento(instrumento.id)"
+                      title="Editar">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn btn-sm btn-danger" 
+                      (click)="eliminarInstrumento(instrumento.id)"
+                      title="Eliminar">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Sin resultados -->
+  <div *ngIf="!loading && instrumentosFiltrados.length === 0" class="text-center py-5 custom-card fade-in">
+    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+    <h4>No se encontraron instrumentos</h4>
+    <p class="text-muted">
+      {{ searchTerm ? 'No hay instrumentos que coincidan con tu búsqueda' : 'No hay instrumentos registrados' }}
+    </p>
+    <button *ngIf="!searchTerm" class="btn btn-custom-primary" routerLink="/instrumento/nuevo">
+      <i class="fas fa-plus-circle me-2"></i>
+      Agregar Primer Instrumento
+    </button>
+  </div>
+</div>
