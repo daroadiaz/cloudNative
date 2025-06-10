@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # Backend Spring Boot con hot reload
+  backend-dev:
+    build:
+      context: ./EcommerceCloudNative
+      dockerfile: Dockerfile.dev
+    container_name: ecommerce-backend-dev
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - TNS_ADMIN=/app/Wallet_EcommerceCloudNative
+    volumes:
+      - ./EcommerceCloudNative/src:/app/src
+      - ./EcommerceCloudNative/pom.xml:/app/pom.xml
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+  # Frontend Angular con servidor de desarrollo
+  frontend-dev:
+    image: node:14.17.6-alpine
+    container_name: ecommerce-frontend-dev
+    working_dir: /app
+    command: sh -c "npm install --legacy-peer-deps && npm start -- --host 0.0.0.0 --disable-host-check"
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./ecommerce-frontend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend-dev
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+networks:
+  ecommerce-network:
+    driver: bridge

@@ -1,0 +1,22 @@
+# Dockerfile para desarrollo con hot reload
+FROM maven:3.8.4-openjdk-17-slim
+WORKDIR /app
+
+# Copiar archivos de configuración
+COPY pom.xml .
+COPY src ./src
+
+# Copiar el wallet de Oracle que está en la raíz del proyecto
+COPY Wallet_EcommerceCloudNative ./Wallet_EcommerceCloudNative
+
+# Descargar dependencias
+RUN mvn dependency:go-offline
+
+# Variables de entorno
+ENV TNS_ADMIN=/app/Wallet_EcommerceCloudNative
+
+# Exponer puerto
+EXPOSE 8080
+
+# Comando para ejecutar con hot reload
+CMD ["mvn", "spring-boot:run", "-Dspring-boot.run.profiles=docker"]
