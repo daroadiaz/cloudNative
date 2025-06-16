@@ -6,6 +6,23 @@
       <p class="text-muted">Ingresa a tu cuenta</p>
     </div>
 
+    <!-- Botón de Azure AD -->
+    <div class="mb-4">
+      <button
+        type="button"
+        class="btn btn-primary w-100 d-flex align-items-center justify-content-center"
+        (click)="loginWithAzure()"
+        [disabled]="loading"
+      >
+        <i class="fab fa-microsoft me-2"></i>
+        Iniciar sesión con Microsoft
+      </button>
+    </div>
+
+    <div class="text-center mb-4">
+      <span class="text-muted">O usa credenciales locales</span>
+    </div>
+
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <!-- Username -->
       <div class="mb-3">
