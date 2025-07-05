@@ -1,43 +1,64 @@
 package com.example.ecommerce.controller;
 
+import com.example.ecommerce.dto.LoginRequest;
+import com.example.ecommerce.dto.LoginResponse;
+import com.example.ecommerce.security.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin(origins = "*")
 public class AuthController {
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
-        String username = credentials.get("username");
-        String password = credentials.get("password");
-        
-        // Validación simple - en producción esto debería usar Spring Security properly
-        if ("Admin".equals(username) && "CloudNative_123".equals(password)) {
-            Map<String, Object> response = new HashMap<>();
-            response.put("success", true);
-            response.put("message", "Login exitoso");
-            response.put("user", username);
-            // En un caso real, aquí generarías un JWT token
-            response.put("token", "Basic " + java.util.Base64.getEncoder()
-                .encodeToString((username + ":" + password).getBytes()));
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        // Validación simple - en producción deberías usar UserDetailsService
+        if ("Admin".equals(loginRequest.getUsername()) && 
+            "CloudNative_123".equals(loginRequest.getPassword())) {
+            
+            String token = jwtUtil.generateToken(loginRequest.getUsername());
+            
+            LoginResponse response = new LoginResponse(
+                true,
+                "Login exitoso",
+                token,
+                loginRequest.getUsername()
+            );
+            
             return ResponseEntity.ok(response);
         } else {
-            Map<String, Object> response = new HashMap<>();
-            response.put("success", false);
-            response.put("message", "Credenciales inválidas");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("success", false);
+            errorResponse.put("message", "Credenciales inválidas");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
         }
     }
     
     @GetMapping("/verify")
-    public ResponseEntity<?> verify() {
+    public ResponseEntity<?> verify(@RequestHeader("Authorization") String authHeader) {
         Map<String, Object> response = new HashMap<>();
-        response.put("authenticated", true);
-        response.put("message", "Token válido");
-        return ResponseEntity.ok(response);
+        
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+            if (jwtUtil.validateToken(token)) {
+                response.put("authenticated", true);
+                response.put("message", "Token válido");
+                response.put("username", jwtUtil.extractUsername(token));
+                return ResponseEntity.ok(response);
+            }
+        }
+        
+        response.put("authenticated", false);
+        response.put("message", "Token inválido o ausente");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 }
