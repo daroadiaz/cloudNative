@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # RabbitMQ Service
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: ecommerce-rabbitmq
+    ports:
+      - "5672:5672"    # AMQP port
+      - "15672:15672"  # Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - ecommerce-network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Microservicio Productor
+  ecommerce-producer:
+    image: ecommerce-producer:latest
+    container_name: ecommerce-producer
+    build:
+      context: ./EcommerceCloudNative_r1
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=admin
+      - SPRING_RABBITMQ_PASSWORD=admin123
+      - TNS_ADMIN=/app/Wallet_EcommerceCloudNative
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    volumes:
+      - ./logs/producer:/app/logs
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+  # Microservicio Consumidor
+  ecommerce-consumer:
+    image: ecommerce-consumer:latest
+    container_name: ecommerce-consumer
+    build:
+      context: ./EcommerceCloudNative_r2
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=admin
+      - SPRING_RABBITMQ_PASSWORD=admin123
+      - TNS_ADMIN=/app/Wallet_EcommerceCloudNative
+      - JSON_OUTPUT_PATH=/app/output
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    volumes:
+      - ./logs/consumer:/app/logs
+      - ./output:/app/output
+    networks:
+      - ecommerce-network
+    restart: unless-stopped
+
+networks:
+  ecommerce-network:
+    driver: bridge
+
+volumes:
+  rabbitmq_data:

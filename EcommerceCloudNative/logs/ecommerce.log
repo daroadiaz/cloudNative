@@ -1,2 +1,315 @@
 2025-06-16T01:05:33.888Z  INFO 1 --- [ecommerce] [main] c.e.ecommerce.EcommerceApplication       : Starting EcommerceApplication v0.0.1-SNAPSHOT using Java 21.0.7 with PID 1 (/app/app.jar started by spring in /app)
 2025-06-16T01:05:33.891Z  INFO 1 --- [ecommerce] [main] c.e.ecommerce.EcommerceApplication       : The following 1 profile is active: "docker"
+2025-07-05T22:43:36.855Z  INFO 1 --- [ecommerce] [main] c.e.ecommerce.EcommerceApplication       : Starting EcommerceApplication v0.0.1-SNAPSHOT using Java 21.0.7 with PID 1 (/app/app.jar started by spring in /app)
+2025-07-05T22:43:36.861Z  INFO 1 --- [ecommerce] [main] c.e.ecommerce.EcommerceApplication       : The following 1 profile is active: "docker"
+2025-07-05T22:43:38.092Z  INFO 1 --- [ecommerce] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-05T22:43:38.185Z  INFO 1 --- [ecommerce] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 78 ms. Found 1 JPA repository interface.
+2025-07-05T22:43:39.018Z  INFO 1 --- [ecommerce] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-07-05T22:43:39.046Z  INFO 1 --- [ecommerce] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-07-05T22:43:39.048Z  INFO 1 --- [ecommerce] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.41]
+2025-07-05T22:43:39.099Z  INFO 1 --- [ecommerce] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-07-05T22:43:39.100Z  INFO 1 --- [ecommerce] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2172 ms
+2025-07-05T22:43:39.606Z  INFO 1 --- [ecommerce] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-05T22:43:39.693Z  INFO 1 --- [ecommerce] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-07-05T22:43:39.769Z  INFO 1 --- [ecommerce] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-07-05T22:43:40.330Z  INFO 1 --- [ecommerce] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-05T22:43:40.397Z  INFO 1 --- [ecommerce] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-07-05T22:43:41.911Z  INFO 1 --- [ecommerce] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@2d07aacc
+2025-07-05T22:43:41.915Z  INFO 1 --- [ecommerce] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-07-05T22:43:42.644Z  WARN 1 --- [ecommerce] [main] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-05T22:43:42.747Z  INFO 1 --- [ecommerce] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 19.28
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-05T22:43:44.845Z  INFO 1 --- [ecommerce] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-05T22:43:46.685Z  INFO 1 --- [ecommerce] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-05T22:43:47.530Z  WARN 1 --- [ecommerce] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-05T22:43:48.166Z  INFO 1 --- [ecommerce] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-07-05T22:43:49.013Z  INFO 1 --- [ecommerce] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-07-05T22:43:49.035Z  INFO 1 --- [ecommerce] [main] c.e.ecommerce.EcommerceApplication       : Started EcommerceApplication in 13.125 seconds (process running for 13.952)
+2025-07-05T22:43:49.042Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:43:49.043Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:43:49.044Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:43:49.045Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:43:49.046Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:43:49.928Z  INFO 1 --- [ecommerce] [main] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:43:49.928Z  INFO 1 --- [ecommerce] [main] c.e.e.config.SecurityPasswordLogger      : APLICACIÓN INICIADA - CREDENCIALES DE ACCESO:
+2025-07-05T22:43:49.929Z  INFO 1 --- [ecommerce] [main] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:43:49.931Z  INFO 1 --- [ecommerce] [main] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs anteriores
+2025-07-05T22:43:49.932Z  INFO 1 --- [ecommerce] [main] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:43:50.357Z  INFO 1 --- [ecommerce] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-05T22:43:50.358Z  INFO 1 --- [ecommerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-07-05T22:43:50.363Z  INFO 1 --- [ecommerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2025-07-05T22:44:19.047Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:44:19.048Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:44:19.049Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:44:19.049Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:44:19.050Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:44:49.049Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:44:49.051Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:44:49.052Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:44:49.053Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:44:49.055Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:45:19.057Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:45:19.058Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:45:19.058Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:45:19.059Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:45:19.059Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:45:49.057Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:45:49.059Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:45:49.060Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:45:49.061Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:45:49.062Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:46:19.062Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:46:19.063Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:46:19.063Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:46:19.064Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:46:19.064Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:46:49.062Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:46:49.063Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:46:49.064Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:46:49.064Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:46:49.065Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:47:19.064Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:47:19.065Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:47:19.065Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:47:19.066Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:47:19.066Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:47:49.065Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:47:49.066Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:47:49.066Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:47:49.067Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:47:49.068Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:48:19.067Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:48:19.069Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:48:19.071Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:48:19.073Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:48:19.074Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:48:49.074Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:48:49.074Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:48:49.075Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:48:49.075Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:48:49.076Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:49:19.076Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:49:19.077Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:49:19.078Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:49:19.078Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:49:19.078Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:49:49.078Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:49:49.078Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:49:49.079Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:49:49.079Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:49:49.079Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:50:19.080Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:50:19.080Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:50:19.080Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:50:19.085Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:50:19.085Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:50:49.087Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:50:49.089Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:50:49.090Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:50:49.092Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:50:49.093Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:51:19.093Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:51:19.094Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:51:19.096Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:51:19.097Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:51:19.099Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:51:49.099Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:51:49.101Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:51:49.103Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:51:49.104Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:51:49.106Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:52:19.106Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:52:19.107Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:52:19.108Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:52:19.108Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:52:19.109Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:52:49.109Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:52:49.109Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:52:49.110Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:52:49.110Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:52:49.111Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:53:19.110Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:53:19.112Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:53:19.112Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:53:19.113Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:53:19.113Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:53:49.113Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:53:49.114Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:53:49.115Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:53:49.116Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:53:49.117Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:54:19.115Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:54:19.116Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:54:19.117Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:54:19.118Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:54:19.119Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:54:49.120Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:54:49.121Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:54:49.122Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:54:49.122Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:54:49.122Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:55:19.121Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:55:19.122Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:55:19.123Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:55:19.123Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:55:19.124Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:55:49.123Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:55:49.124Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:55:49.124Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:55:49.125Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:55:49.125Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:56:19.125Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:56:19.127Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:56:19.129Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:56:19.131Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:56:19.134Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:56:49.133Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:56:49.133Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:56:49.134Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:56:49.134Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:56:49.135Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:57:19.135Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:57:19.135Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:57:19.136Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:57:19.136Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:57:19.136Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:57:49.135Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:57:49.136Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:57:49.136Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:57:49.137Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:57:49.137Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:58:19.136Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:58:19.137Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:58:19.137Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:58:19.137Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:58:19.138Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:58:49.137Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:58:49.138Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:58:49.138Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:58:49.138Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:58:49.138Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:59:19.136Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:59:19.137Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:59:19.139Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:59:19.141Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:59:19.142Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:59:49.141Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T22:59:49.142Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T22:59:49.142Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T22:59:49.143Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T22:59:49.143Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:00:19.141Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:00:19.142Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T23:00:19.143Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T23:00:19.143Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T23:00:19.143Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:00:49.142Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:00:49.143Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T23:00:49.145Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T23:00:49.147Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T23:00:49.148Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:01:19.148Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:01:19.149Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T23:01:19.150Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T23:01:19.150Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T23:01:19.151Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:01:49.150Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:01:49.150Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T23:01:49.151Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T23:01:49.151Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T23:01:49.152Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:02:19.151Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:02:19.152Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T23:02:19.152Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T23:02:19.152Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T23:02:19.153Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:02:49.150Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:02:49.151Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T23:02:49.151Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T23:02:49.152Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T23:02:49.152Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:03:19.152Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:03:19.152Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T23:03:19.152Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T23:03:19.153Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T23:03:19.153Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:03:49.152Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:03:49.152Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T23:03:49.153Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T23:03:49.153Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T23:03:49.153Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:04:19.152Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:04:19.154Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T23:04:19.155Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T23:04:19.155Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T23:04:19.156Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:04:49.155Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:04:49.156Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T23:04:49.157Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T23:04:49.157Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T23:04:49.158Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:05:19.157Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:05:19.158Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T23:05:19.158Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T23:05:19.159Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T23:05:19.159Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:05:44.182Z  INFO 1 --- [ecommerce] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-05T23:05:44.194Z  INFO 1 --- [ecommerce] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-07-05T23:05:44.199Z  INFO 1 --- [ecommerce] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-05T23:05:44.201Z  INFO 1 --- [ecommerce] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-07-05T23:05:44.255Z  INFO 1 --- [ecommerce] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-07-05T23:10:11.468Z  INFO 1 --- [ecommerce] [main] c.e.ecommerce.EcommerceApplication       : Starting EcommerceApplication v0.0.1-SNAPSHOT using Java 21.0.7 with PID 1 (/app/app.jar started by spring in /app)
+2025-07-05T23:10:11.472Z  INFO 1 --- [ecommerce] [main] c.e.ecommerce.EcommerceApplication       : The following 1 profile is active: "docker"
+2025-07-05T23:10:12.486Z  INFO 1 --- [ecommerce] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-07-05T23:10:12.570Z  INFO 1 --- [ecommerce] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 70 ms. Found 1 JPA repository interface.
+2025-07-05T23:10:13.350Z  INFO 1 --- [ecommerce] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-07-05T23:10:13.377Z  INFO 1 --- [ecommerce] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-07-05T23:10:13.378Z  INFO 1 --- [ecommerce] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.41]
+2025-07-05T23:10:13.451Z  INFO 1 --- [ecommerce] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-07-05T23:10:13.452Z  INFO 1 --- [ecommerce] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1905 ms
+2025-07-05T23:10:14.205Z  INFO 1 --- [ecommerce] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-07-05T23:10:14.318Z  INFO 1 --- [ecommerce] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-07-05T23:10:14.402Z  INFO 1 --- [ecommerce] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-07-05T23:10:14.823Z  INFO 1 --- [ecommerce] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-07-05T23:10:14.907Z  INFO 1 --- [ecommerce] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-07-05T23:10:16.556Z  INFO 1 --- [ecommerce] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@586737ff
+2025-07-05T23:10:16.560Z  INFO 1 --- [ecommerce] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-07-05T23:10:17.075Z  WARN 1 --- [ecommerce] [main] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-07-05T23:10:17.171Z  INFO 1 --- [ecommerce] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 19.28
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-07-05T23:10:19.252Z  INFO 1 --- [ecommerce] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-07-05T23:10:20.028Z  INFO 1 --- [ecommerce] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-07-05T23:10:20.814Z  WARN 1 --- [ecommerce] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-07-05T23:10:21.462Z  INFO 1 --- [ecommerce] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-07-05T23:10:22.492Z  INFO 1 --- [ecommerce] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-07-05T23:10:22.525Z  INFO 1 --- [ecommerce] [main] c.e.ecommerce.EcommerceApplication       : Started EcommerceApplication in 11.938 seconds (process running for 12.657)
+2025-07-05T23:10:22.538Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:10:22.540Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : RECORDATORIO - CREDENCIALES DE ACCESO:
+2025-07-05T23:10:22.543Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T23:10:22.544Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs
+2025-07-05T23:10:22.545Z  INFO 1 --- [ecommerce] [scheduling-1] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:10:23.479Z  INFO 1 --- [ecommerce] [main] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:10:23.484Z  INFO 1 --- [ecommerce] [main] c.e.e.config.SecurityPasswordLogger      : APLICACIÓN INICIADA - CREDENCIALES DE ACCESO:
+2025-07-05T23:10:23.485Z  INFO 1 --- [ecommerce] [main] c.e.e.config.SecurityPasswordLogger      : Usuario: user
+2025-07-05T23:10:23.486Z  INFO 1 --- [ecommerce] [main] c.e.e.config.SecurityPasswordLogger      : Contraseña: Buscar 'Using generated security password' en los logs anteriores
+2025-07-05T23:10:23.487Z  INFO 1 --- [ecommerce] [main] c.e.e.config.SecurityPasswordLogger      : ==============================================
+2025-07-05T23:10:25.267Z  INFO 1 --- [ecommerce] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-05T23:10:25.268Z  INFO 1 --- [ecommerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-07-05T23:10:25.271Z  INFO 1 --- [ecommerce] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2025-07-05T23:10:27.954Z  INFO 1 --- [ecommerce] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-07-05T23:10:27.969Z  INFO 1 --- [ecommerce] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-07-05T23:10:27.979Z  INFO 1 --- [ecommerce] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-07-05T23:10:27.987Z  INFO 1 --- [ecommerce] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-07-05T23:10:28.051Z  INFO 1 --- [ecommerce] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

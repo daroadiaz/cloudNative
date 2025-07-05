@@ -1,0 +1,129 @@
+# Compiled class file
+*.class
+
+# Log files
+*.log
+logs/
+*.log.*
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs
+hs_err_pid*
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE - IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# IDE - Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# IDE - VSCode
+.vscode/
+*.code-workspace
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Application specific
+output/
+*.json
+!*-collection.json
+!package.json
+!package-lock.json
+
+# Oracle Wallet - Sensitive files
+Wallet_*/
+**/Wallet_*/*.p12
+**/Wallet_*/*.sso
+**/Wallet_*/keystore.jks
+**/Wallet_*/truststore.jks
+
+# Keep wallet configuration files
+!**/Wallet_*/tnsnames.ora
+!**/Wallet_*/sqlnet.ora
+!**/Wallet_*/ojdbc.properties
+
+# Docker volumes
+rabbitmq_data/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*~
+
+# Node modules (if frontend is added later)
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build directories
+build/
+dist/
+
+# Test coverage
+coverage/
+*.lcov
+.nyc_output/
+
+# Documentation build
+docs/_build/
+docs/.jekyll-cache/
+
+# Backup files
+*.bak
+*.backup
+
+# Lock files (except package-lock.json)
+*.lock
+!package-lock.json
+
+# Certificates (except specific ones)
+*.pem
+*.key
+*.crt
+*.cer
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3

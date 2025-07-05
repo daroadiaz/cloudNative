@@ -1,0 +1,185 @@
+{
+	"info": {
+		"_postman_id": "a6e40b4a-db7d-4f02-9cfc-90d5338d1d88",
+		"name": "Develop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43472334",
+		"_collection_link": "https://planetary-moon-241933.postman.co/workspace/Team-Workspace~3240badb-2abd-48d5-8816-19b6085bae9a/collection/43472334-a6e40b4a-db7d-4f02-9cfc-90d5338d1d88?action=share&source=collection_link&creator=43472334"
+	},
+	"item": [
+		{
+			"name": "1. GET - Obtener todos los instrumentos",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "CloudNative_123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/instrumentos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"instrumentos"
+					]
+				},
+				"description": "Generated from cURL: curl -X GET http://localhost:8080/api/instrumentos"
+			},
+			"response": []
+		},
+		{
+			"name": "2. GET - Obtener un instrumento por ID",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "CloudNative_123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/instrumentos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"instrumentos",
+						"1"
+					]
+				},
+				"description": "Generated from cURL: curl -X GET http://localhost:8080/api/instrumentos/1\n"
+			},
+			"response": []
+		},
+		{
+			"name": "3. POST - Crear un nuevo instrumento",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "CloudNative_123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Guitarra Eléctrica\",\r\n    \"marca\": \"Fender\",\r\n    \"tipo\": \"Cuerda\",\r\n    \"precio\": 1500.00,\r\n    \"stock\": 10\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/instrumentos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"instrumentos"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST http://localhost:8080/api/instrumentos \\\r\n  -H \"Content-Type: application/json\" \\\r\n  -d '{\r\n    \"nombre\": \"Guitarra Eléctrica\",\r\n    \"marca\": \"Fender\",\r\n    \"tipo\": \"Cuerda\",\r\n    \"precio\": 1500.00,\r\n    \"stock\": 10\r\n  }'"
+			},
+			"response": []
+		},
+		{
+			"name": "4. PUT - Actualizar un instrumento existente",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "CloudNative_123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Guitarra Eléctrica Stratocaster\",\r\n    \"marca\": \"Fender\",\r\n    \"tipo\": \"Cuerda\",\r\n    \"precio\": 1800.00,\r\n    \"stock\": 8\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/instrumentos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"instrumentos",
+						"1"
+					]
+				},
+				"description": "Generated from cURL: curl -X PUT http://localhost:8080/api/instrumentos/1 \\\r\n  -H \"Content-Type: application/json\" \\\r\n  -d '{\r\n    \"nombre\": \"Guitarra Eléctrica Stratocaster\",\r\n    \"marca\": \"Fender\",\r\n    \"tipo\": \"Cuerda\",\r\n    \"precio\": 1800.00,\r\n    \"stock\": 8\r\n  }'"
+			},
+			"response": []
+		}
+	]
+}
