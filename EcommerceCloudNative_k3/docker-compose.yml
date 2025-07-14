@@ -1,4 +1,4 @@
-﻿version: '3.8'
+version: '3.8'
 
 services:
   # RabbitMQ Service
@@ -20,33 +20,8 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 40s
 
-  # Microservicio Principal API
-  ecommerce-api:
-    image: ecommerce-api:latest
-    container_name: ecommerce-springboot
-    build:
-      context: ./EcommerceCloudNative
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - TNS_ADMIN=/app/Wallet_EcommerceCloudNative
-    volumes:
-      - ./EcommerceCloudNative/logs:/app/logs
-    restart: unless-stopped
-    networks:
-      - ecommerce-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-
-  # Microservicio Productor (RabbitMQ)
+  # Microservicio Productor
   ecommerce-producer:
     image: ecommerce-producer:latest
     container_name: ecommerce-producer
@@ -66,18 +41,12 @@ services:
       rabbitmq:
         condition: service_healthy
     volumes:
-      - ./EcommerceCloudNative_r1/logs:/app/logs
+      - ./logs/producer:/app/logs
     networks:
       - ecommerce-network
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
 
-  # Microservicio Consumidor (RabbitMQ)
+  # Microservicio Consumidor
   ecommerce-consumer:
     image: ecommerce-consumer:latest
     container_name: ecommerce-consumer
@@ -97,20 +66,12 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
-      ecommerce-producer:
-        condition: service_started
     volumes:
-      - ./EcommerceCloudNative_r2/logs:/app/logs
+      - ./logs/consumer:/app/logs
       - ./output:/app/output
     networks:
       - ecommerce-network
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8082/actuator/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
 
 networks:
   ecommerce-network:
@@ -118,4 +79,3 @@ networks:
 
 volumes:
   rabbitmq_data:
-    driver: local

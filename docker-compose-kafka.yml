@@ -1,0 +1,304 @@
+version: '3.8'
+
+services:
+  # Zookeeper Cluster (3 nodos)
+  zookeeper-1:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: zookeeper-1
+    hostname: zookeeper-1
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_SERVERS: zookeeper-1:2888:3888;zookeeper-2:2888:3888;zookeeper-3:2888:3888
+    volumes:
+      - zookeeper-1-data:/var/lib/zookeeper/data
+      - zookeeper-1-logs:/var/lib/zookeeper/logs
+    networks:
+      - kafka-network
+
+  zookeeper-2:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: zookeeper-2
+    hostname: zookeeper-2
+    ports:
+      - "2182:2182"
+    environment:
+      ZOOKEEPER_SERVER_ID: 2
+      ZOOKEEPER_CLIENT_PORT: 2182
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_SERVERS: zookeeper-1:2888:3888;zookeeper-2:2888:3888;zookeeper-3:2888:3888
+    volumes:
+      - zookeeper-2-data:/var/lib/zookeeper/data
+      - zookeeper-2-logs:/var/lib/zookeeper/logs
+    networks:
+      - kafka-network
+
+  zookeeper-3:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: zookeeper-3
+    hostname: zookeeper-3
+    ports:
+      - "2183:2183"
+    environment:
+      ZOOKEEPER_SERVER_ID: 3
+      ZOOKEEPER_CLIENT_PORT: 2183
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_SERVERS: zookeeper-1:2888:3888;zookeeper-2:2888:3888;zookeeper-3:2888:3888
+    volumes:
+      - zookeeper-3-data:/var/lib/zookeeper/data
+      - zookeeper-3-logs:/var/lib/zookeeper/logs
+    networks:
+      - kafka-network
+
+  # Kafka Cluster (3 brokers)
+  kafka-1:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: kafka-1
+    hostname: kafka-1
+    ports:
+      - "9092:9092"
+      - "19092:19092"
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2181,zookeeper-2:2182,zookeeper-3:2183
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 3
+      KAFKA_MIN_INSYNC_REPLICAS: 2
+      KAFKA_LOG_RETENTION_HOURS: 168
+      KAFKA_LOG_SEGMENT_BYTES: 1073741824
+      KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS: 300000
+      KAFKA_CLEANUP_POLICY: delete
+    volumes:
+      - kafka-1-data:/var/lib/kafka/data
+    networks:
+      - kafka-network
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  kafka-2:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: kafka-2
+    hostname: kafka-2
+    ports:
+      - "9093:9093"
+      - "19093:19093"
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2181,zookeeper-2:2182,zookeeper-3:2183
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-2:29093,PLAINTEXT_HOST://localhost:9093
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 3
+      KAFKA_MIN_INSYNC_REPLICAS: 2
+      KAFKA_LOG_RETENTION_HOURS: 168
+      KAFKA_LOG_SEGMENT_BYTES: 1073741824
+      KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS: 300000
+      KAFKA_CLEANUP_POLICY: delete
+    volumes:
+      - kafka-2-data:/var/lib/kafka/data
+    networks:
+      - kafka-network
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9093"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  kafka-3:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: kafka-3
+    hostname: kafka-3
+    ports:
+      - "9094:9094"
+      - "19094:19094"
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2181,zookeeper-2:2182,zookeeper-3:2183
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-3:29094,PLAINTEXT_HOST://localhost:9094
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 3
+      KAFKA_MIN_INSYNC_REPLICAS: 2
+      KAFKA_LOG_RETENTION_HOURS: 168
+      KAFKA_LOG_SEGMENT_BYTES: 1073741824
+      KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS: 300000
+      KAFKA_CLEANUP_POLICY: delete
+    volumes:
+      - kafka-3-data:/var/lib/kafka/data
+    networks:
+      - kafka-network
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9094"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Kafka UI
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    ports:
+      - "8080:8080"
+    depends_on:
+      - kafka-1
+      - kafka-2
+      - kafka-3
+    environment:
+      KAFKA_CLUSTERS_0_NAME: ecommerce-cluster
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-1:29092,kafka-2:29093,kafka-3:29094
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper-1:2181,zookeeper-2:2182,zookeeper-3:2183
+      KAFKA_CLUSTERS_0_READONLY: false
+    networks:
+      - kafka-network
+
+  # Init Container para crear tópicos
+  kafka-init:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: kafka-init
+    depends_on:
+      kafka-1:
+        condition: service_healthy
+      kafka-2:
+        condition: service_healthy
+      kafka-3:
+        condition: service_healthy
+    networks:
+      - kafka-network
+    command: |
+      bash -c '
+        echo "Esperando a que Kafka esté listo..."
+        sleep 10
+        
+        echo "Creando tópico ventas..."
+        kafka-topics --create --if-not-exists \
+          --bootstrap-server kafka-1:29092,kafka-2:29093,kafka-3:29094 \
+          --topic ventas \
+          --partitions 3 \
+          --replication-factor 3 \
+          --config retention.ms=604800000 \
+          --config compression.type=gzip
+        
+        echo "Creando tópico stock..."
+        kafka-topics --create --if-not-exists \
+          --bootstrap-server kafka-1:29092,kafka-2:29093,kafka-3:29094 \
+          --topic stock \
+          --partitions 3 \
+          --replication-factor 3 \
+          --config retention.ms=604800000 \
+          --config compression.type=gzip
+        
+        echo "Listando tópicos..."
+        kafka-topics --list --bootstrap-server kafka-1:29092,kafka-2:29093,kafka-3:29094
+        
+        echo "Tópicos creados exitosamente!"
+      '
+
+  # Microservicios
+  ms-ventas-k1:
+    build: 
+      context: ./EcommerceCloudNative_k1
+      dockerfile: Dockerfile
+    image: ecommerce-ventas-k1:latest
+    container_name: ms-ventas-k1
+    ports:
+      - "8091:8091"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - KAFKA_BOOTSTRAP_SERVERS=kafka-1:29092,kafka-2:29093,kafka-3:29094
+      - TNS_ADMIN=/app/Wallet_EcommerceCloudNative
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully
+    volumes:
+      - ./logs/ventas:/app/logs
+    networks:
+      - kafka-network
+    restart: unless-stopped
+
+  ms-inventario-k2:
+    build: 
+      context: ./EcommerceCloudNative_k2
+      dockerfile: Dockerfile
+    image: ecommerce-inventario-k2:latest
+    container_name: ms-inventario-k2
+    ports:
+      - "8092:8092"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - KAFKA_BOOTSTRAP_SERVERS=kafka-1:29092,kafka-2:29093,kafka-3:29094
+      - TNS_ADMIN=/app/Wallet_EcommerceCloudNative
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully
+    volumes:
+      - ./logs/inventario:/app/logs
+    networks:
+      - kafka-network
+    restart: unless-stopped
+
+  ms-promociones-k3:
+    build: 
+      context: ./EcommerceCloudNative_k3
+      dockerfile: Dockerfile
+    image: ecommerce-promociones-k3:latest
+    container_name: ms-promociones-k3
+    ports:
+      - "8093:8093"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - KAFKA_BOOTSTRAP_SERVERS=kafka-1:29092,kafka-2:29093,kafka-3:29094
+      - TNS_ADMIN=/app/Wallet_EcommerceCloudNative
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully
+    volumes:
+      - ./logs/promociones:/app/logs
+    networks:
+      - kafka-network
+    restart: unless-stopped
+
+networks:
+  kafka-network:
+    driver: bridge
+
+volumes:
+  # Zookeeper volumes
+  zookeeper-1-data:
+  zookeeper-1-logs:
+  zookeeper-2-data:
+  zookeeper-2-logs:
+  zookeeper-3-data:
+  zookeeper-3-logs:
+  # Kafka volumes
+  kafka-1-data:
+  kafka-2-data:
+  kafka-3-data:

@@ -1,0 +1,364 @@
+{
+	"info": {
+		"_postman_id": "3d0dff6f-1c55-4d06-88c9-d663453398ae",
+		"name": "Ecommerce Kafka System",
+		"description": "Colección para el sistema de microservicios con Kafka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "K1 - Ventas",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"",
+											"if (jsonData.token) {",
+											"    pm.collectionVariables.set(\"jwt_token\", jsonData.token);",
+											"    console.log(\"Token JWT guardado: \" + jsonData.token);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"Admin\",\n    \"password\": \"CloudNative_123\"\n}"
+								},
+								"url": {
+									"raw": "{{k1_url}}/api/auth/login",
+									"host": [
+										"{{k1_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Ventas",
+					"item": [
+						{
+							"name": "Registrar Venta",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"productoId\": 1,\n    \"productoNombre\": \"Laptop Dell XPS 15\",\n    \"cantidad\": 2,\n    \"precioUnitario\": 1500.00,\n    \"clienteNombre\": \"Juan Pérez\",\n    \"clienteEmail\": \"juan.perez@email.com\"\n}"
+								},
+								"url": {
+									"raw": "{{k1_url}}/api/ventas",
+									"host": [
+										"{{k1_url}}"
+									],
+									"path": [
+										"api",
+										"ventas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Listar Ventas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{k1_url}}/api/ventas",
+									"host": [
+										"{{k1_url}}"
+									],
+									"path": [
+										"api",
+										"ventas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Procesar Ventas Batch",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"productoId\": 2,\n        \"productoNombre\": \"Mouse Logitech MX Master\",\n        \"cantidad\": 5,\n        \"precioUnitario\": 99.99,\n        \"clienteNombre\": \"María García\",\n        \"clienteEmail\": \"maria.garcia@email.com\"\n    },\n    {\n        \"productoId\": 3,\n        \"productoNombre\": \"Teclado Mecánico RGB\",\n        \"cantidad\": 3,\n        \"precioUnitario\": 150.00,\n        \"clienteNombre\": \"Carlos López\",\n        \"clienteEmail\": \"carlos.lopez@email.com\"\n    }\n]"
+								},
+								"url": {
+									"raw": "{{k1_url}}/api/ventas/batch",
+									"host": [
+										"{{k1_url}}"
+									],
+									"path": [
+										"api",
+										"ventas",
+										"batch"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "K2 - Inventario",
+			"item": [
+				{
+					"name": "Inventario",
+					"item": [
+						{
+							"name": "Listar Inventario",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{k2_url}}/api/inventario",
+									"host": [
+										"{{k2_url}}"
+									],
+									"path": [
+										"api",
+										"inventario"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Agregar Producto",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\": \"Laptop Dell XPS 15\",\n    \"descripcion\": \"Laptop de alto rendimiento\",\n    \"precio\": 1500.00,\n    \"stockActual\": 100,\n    \"stockMinimo\": 10,\n    \"stockMaximo\": 200,\n    \"categoria\": \"COMPUTADORAS\"\n}"
+								},
+								"url": {
+									"raw": "{{k2_url}}/api/inventario/productos",
+									"host": [
+										"{{k2_url}}"
+									],
+									"path": [
+										"api",
+										"inventario",
+										"productos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Productos Bajo Stock",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{k2_url}}/api/inventario/bajo-stock",
+									"host": [
+										"{{k2_url}}"
+									],
+									"path": [
+										"api",
+										"inventario",
+										"bajo-stock"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reabastecer Producto",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{k2_url}}/api/inventario/restock/1?cantidad=50",
+									"host": [
+										"{{k2_url}}"
+									],
+									"path": [
+										"api",
+										"inventario",
+										"restock",
+										"1"
+									],
+									"query": [
+										{
+											"key": "cantidad",
+											"value": "50"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "K3 - Promociones",
+			"item": [
+				{
+					"name": "Promociones",
+					"item": [
+						{
+							"name": "Generar Promociones",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{k3_url}}/api/promociones/generar",
+									"host": [
+										"{{k3_url}}"
+									],
+									"path": [
+										"api",
+										"promociones",
+										"generar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Analizar Candidatos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{k3_url}}/api/promociones/analizar",
+									"host": [
+										"{{k3_url}}"
+									],
+									"path": [
+										"api",
+										"promociones",
+										"analizar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Listar Promociones Activas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{k3_url}}/api/promociones/activas",
+									"host": [
+										"{{k3_url}}"
+									],
+									"path": [
+										"api",
+										"promociones",
+										"activas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Estadísticas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{k3_url}}/api/promociones/estadisticas",
+									"host": [
+										"{{k3_url}}"
+									],
+									"path": [
+										"api",
+										"promociones",
+										"estadisticas"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{jwt_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "k1_url",
+			"value": "http://localhost:8091",
+			"type": "string"
+		},
+		{
+			"key": "k2_url",
+			"value": "http://localhost:8092",
+			"type": "string"
+		},
+		{
+			"key": "k3_url",
+			"value": "http://localhost:8093",
+			"type": "string"
+		},
+		{
+			"key": "jwt_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
