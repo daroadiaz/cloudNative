@@ -1,239 +1,41 @@
-# 📂 GUÍA COMPLETA DE UBICACIÓN DE ARCHIVOS
+# PASO 1: Limpiar todo lo anterior
+docker-compose down -v
 
-## 🗂️ Archivos en el Directorio Raíz
-**Ubicación:** `C:\Users\esnup\Desktop\entregableCloud\cloudNative\`
+# PASO 2: Construir todas las imágenes
+docker-compose build --parallel
 
-```
-cloudNative/
-├── docker-compose.yml
-├── setup-rabbitmq.ps1
-├── setup-rabbitmq.sh
-├── start-system.ps1
-├── cleanup-projects.ps1
-├── copy-required-files.ps1
-├── validate-setup.ps1
-├── test-system.ps1
-├── curl-commands.sh
-├── .gitignore
-├── README.md
-├── TROUBLESHOOTING.md
-├── ARCHIVOS-A-ELIMINAR.md
-├── PASOS-IMPLEMENTACION.md
-├── RESUMEN-SISTEMA.md
-├── Ecommerce-RabbitMQ-Collection.json
-├── EcommerceCloudNative_r1/
-└── EcommerceCloudNative_r2/
-```
+# PASO 3: Iniciar SOLO la infraestructura (RabbitMQ + Kafka)
+docker-compose up -d rabbitmq zookeeper-1 zookeeper-2 zookeeper-3
 
----
+# PASO 4: Esperar 30 segundos para que RabbitMQ y Zookeeper estén listos
+timeout /t 30
 
-## 📁 PROYECTO 1: EcommerceCloudNative_r1 (PRODUCER)
+# PASO 5: Configurar RabbitMQ
+docker exec ecommerce-rabbitmq rabbitmqctl add_vhost /
+docker exec ecommerce-rabbitmq rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
+docker exec ecommerce-rabbitmq rabbitmqadmin -u admin -p admin123 declare exchange name=ecommerce-exchange type=direct durable=true
+docker exec ecommerce-rabbitmq rabbitmqadmin -u admin -p admin123 declare queue name=sales-queue durable=true
+docker exec ecommerce-rabbitmq rabbitmqadmin -u admin -p admin123 declare queue name=promotions-queue durable=true
+docker exec ecommerce-rabbitmq rabbitmqadmin -u admin -p admin123 declare binding source=ecommerce-exchange destination=sales-queue routing_key=sales.routing.key
+docker exec ecommerce-rabbitmq rabbitmqadmin -u admin -p admin123 declare binding source=ecommerce-exchange destination=promotions-queue routing_key=promotions.routing.key
 
-### 🔧 Archivos de Configuración Principal
+# PASO 6: Iniciar Kafka brokers
+docker-compose up -d kafka-1 kafka-2 kafka-3
 
-```
-EcommerceCloudNative_r1/
-├── pom.xml (MODIFICAR - reemplazar completamente)
-├── Dockerfile (CREAR NUEVO)
-├── src/
-│   └── main/
-│       ├── java/
-│       └── resources/
-│           ├── application.properties (MODIFICAR)
-│           └── application-docker.properties (MODIFICAR)
-```
+# PASO 6: Iniciar Kafka brokers (Alternativo)
+docker-compose up -d ecommerce-kafka-producer ecommerce-kafka-consumer1 ecommerce-kafka-consumer2
 
-### ☕ Archivos Java - Estructura Completa
+# PASO 7: Esperar 30 segundos para que Kafka esté listo
+timeout /t 30
 
-```
-EcommerceCloudNative_r1/src/main/java/com/example/ecommerce/
-├── EcommerceApplication.java (MANTENER sin cambios)
-│
-├── config/
-│   ├── CorsConfig.java (MANTENER sin cambios)
-│   ├── RabbitMQConfig.java (CREAR NUEVO) ✨
-│   └── SecurityConfig.java (MANTENER sin cambios)
-│
-├── controller/
-│   ├── AuthController.java (MANTENER sin cambios)
-│   ├── PromocionController.java (CREAR NUEVO) ✨
-│   └── VentaController.java (CREAR NUEVO) ✨
-│
-├── dto/
-│   ├── LoginRequest.java (MANTENER sin cambios)
-│   └── LoginResponse.java (MANTENER sin cambios)
-│
-├── model/
-│   ├── Promocion.java (CREAR NUEVO) ✨
-│   └── Venta.java (CREAR NUEVO) ✨
-│
-├── repository/
-│   ├── PromocionRepository.java (CREAR NUEVO) ✨
-│   └── VentaRepository.java (CREAR NUEVO) ✨
-│
-├── security/
-│   ├── JwtAuthenticationEntryPoint.java (MANTENER sin cambios)
-│   ├── JwtAuthenticationFilter.java (MANTENER sin cambios)
-│   └── JwtUtil.java (MANTENER sin cambios)
-│
-└── service/
-    └── RabbitMQProducerService.java (CREAR NUEVO) ✨
-```
+# PASO 8: Iniciar el contenedor de inicialización de Kafka
+docker-compose up kafka-init
 
-### 🗑️ Archivos a ELIMINAR en r1:
-- ❌ `controller/InstrumentoController.java`
-- ❌ `model/Instrumento.java`
-- ❌ `repository/InstrumentoRepository.java`
-- ❌ `service/InstrumentoService.java`
-- ❌ `config/DataInitializer.java`
-- ❌ `config/SecurityPasswordLogger.java`
+# PASO 9: Iniciar TODOS los microservicios
+docker-compose up -d
 
----
+# PASO 10: Verificar que todo esté corriendo
+docker-compose ps
 
-## 📁 PROYECTO 2: EcommerceCloudNative_r2 (CONSUMER)
-
-### 🔧 Archivos de Configuración Principal
-
-```
-EcommerceCloudNative_r2/
-├── pom.xml (MODIFICAR - reemplazar completamente)
-├── Dockerfile (CREAR NUEVO)
-├── src/
-│   └── main/
-│       ├── java/
-│       └── resources/
-│           ├── application.properties (MODIFICAR)
-│           └── application-docker.properties (MODIFICAR)
-```
-
-### ☕ Archivos Java - Estructura Completa
-
-```
-EcommerceCloudNative_r2/src/main/java/com/example/ecommerce/
-├── EcommerceApplication.java (MANTENER sin cambios)
-│
-├── config/
-│   ├── CorsConfig.java (CREAR NUEVO) ✨
-│   ├── RabbitMQConfig.java (CREAR NUEVO) ✨
-│   └── SecurityConfig.java (MODIFICAR - versión simplificada) 🔄
-│
-├── controller/
-│   └── MonitorController.java (CREAR NUEVO) ✨
-│
-├── model/
-│   ├── Promocion.java (COPIAR de r1) 📋
-│   └── Venta.java (COPIAR de r1) 📋
-│
-├── repository/
-│   └── VentaRepository.java (COPIAR de r1) 📋
-│
-└── service/
-    ├── PromotionsConsumerService.java (CREAR NUEVO) ✨
-    └── SalesConsumerService.java (CREAR NUEVO) ✨
-```
-
-### 🗑️ Archivos a ELIMINAR en r2:
-- ❌ `controller/InstrumentoController.java`
-- ❌ `controller/AuthController.java`
-- ❌ `model/Instrumento.java`
-- ❌ `repository/InstrumentoRepository.java`
-- ❌ `service/InstrumentoService.java`
-- ❌ `config/DataInitializer.java`
-- ❌ `config/SecurityPasswordLogger.java`
-- ❌ TODA la carpeta `security/` (con todos sus archivos)
-- ❌ TODA la carpeta `dto/` (con todos sus archivos)
-
----
-
-## 📋 TABLA RESUMEN DE ACCIONES
-
-### Para EcommerceCloudNative_r1:
-
-| Archivo | Acción | Ubicación Completa |
-|---------|--------|-------------------|
-| pom.xml | MODIFICAR | `/EcommerceCloudNative_r1/pom.xml` |
-| Dockerfile | CREAR | `/EcommerceCloudNative_r1/Dockerfile` |
-| application.properties | MODIFICAR | `/EcommerceCloudNative_r1/src/main/resources/application.properties` |
-| application-docker.properties | MODIFICAR | `/EcommerceCloudNative_r1/src/main/resources/application-docker.properties` |
-| RabbitMQConfig.java | CREAR | `/EcommerceCloudNative_r1/src/main/java/com/example/ecommerce/config/RabbitMQConfig.java` |
-| Venta.java | CREAR | `/EcommerceCloudNative_r1/src/main/java/com/example/ecommerce/model/Venta.java` |
-| Promocion.java | CREAR | `/EcommerceCloudNative_r1/src/main/java/com/example/ecommerce/model/Promocion.java` |
-| VentaRepository.java | CREAR | `/EcommerceCloudNative_r1/src/main/java/com/example/ecommerce/repository/VentaRepository.java` |
-| PromocionRepository.java | CREAR | `/EcommerceCloudNative_r1/src/main/java/com/example/ecommerce/repository/PromocionRepository.java` |
-| RabbitMQProducerService.java | CREAR | `/EcommerceCloudNative_r1/src/main/java/com/example/ecommerce/service/RabbitMQProducerService.java` |
-| VentaController.java | CREAR | `/EcommerceCloudNative_r1/src/main/java/com/example/ecommerce/controller/VentaController.java` |
-| PromocionController.java | CREAR | `/EcommerceCloudNative_r1/src/main/java/com/example/ecommerce/controller/PromocionController.java` |
-
-### Para EcommerceCloudNative_r2:
-
-| Archivo | Acción | Ubicación Completa |
-|---------|--------|-------------------|
-| pom.xml | MODIFICAR | `/EcommerceCloudNative_r2/pom.xml` |
-| Dockerfile | CREAR | `/EcommerceCloudNative_r2/Dockerfile` |
-| application.properties | MODIFICAR | `/EcommerceCloudNative_r2/src/main/resources/application.properties` |
-| application-docker.properties | MODIFICAR | `/EcommerceCloudNative_r2/src/main/resources/application-docker.properties` |
-| SecurityConfig.java | MODIFICAR | `/EcommerceCloudNative_r2/src/main/java/com/example/ecommerce/config/SecurityConfig.java` |
-| CorsConfig.java | CREAR | `/EcommerceCloudNative_r2/src/main/java/com/example/ecommerce/config/CorsConfig.java` |
-| RabbitMQConfig.java | CREAR | `/EcommerceCloudNative_r2/src/main/java/com/example/ecommerce/config/RabbitMQConfig.java` |
-| MonitorController.java | CREAR | `/EcommerceCloudNative_r2/src/main/java/com/example/ecommerce/controller/MonitorController.java` |
-| SalesConsumerService.java | CREAR | `/EcommerceCloudNative_r2/src/main/java/com/example/ecommerce/service/SalesConsumerService.java` |
-| PromotionsConsumerService.java | CREAR | `/EcommerceCloudNative_r2/src/main/java/com/example/ecommerce/service/PromotionsConsumerService.java` |
-| Venta.java | COPIAR de r1 | `/EcommerceCloudNative_r2/src/main/java/com/example/ecommerce/model/Venta.java` |
-| Promocion.java | COPIAR de r1 | `/EcommerceCloudNative_r2/src/main/java/com/example/ecommerce/model/Promocion.java` |
-| VentaRepository.java | COPIAR de r1 | `/EcommerceCloudNative_r2/src/main/java/com/example/ecommerce/repository/VentaRepository.java` |
-
----
-
-## 🛠️ COMANDOS PARA CREAR DIRECTORIOS
-
-### PowerShell - Crear estructura en r1:
-```powershell
-# Asegurarse de que existan todos los directorios
-cd EcommerceCloudNative_r1
-New-Item -ItemType Directory -Force -Path "src\main\java\com\example\ecommerce\config"
-New-Item -ItemType Directory -Force -Path "src\main\java\com\example\ecommerce\controller"
-New-Item -ItemType Directory -Force -Path "src\main\java\com\example\ecommerce\dto"
-New-Item -ItemType Directory -Force -Path "src\main\java\com\example\ecommerce\model"
-New-Item -ItemType Directory -Force -Path "src\main\java\com\example\ecommerce\repository"
-New-Item -ItemType Directory -Force -Path "src\main\java\com\example\ecommerce\security"
-New-Item -ItemType Directory -Force -Path "src\main\java\com\example\ecommerce\service"
-cd ..
-```
-
-### PowerShell - Crear estructura en r2:
-```powershell
-# Asegurarse de que existan todos los directorios
-cd EcommerceCloudNative_r2
-New-Item -ItemType Directory -Force -Path "src\main\java\com\example\ecommerce\config"
-New-Item -ItemType Directory -Force -Path "src\main\java\com\example\ecommerce\controller"
-New-Item -ItemType Directory -Force -Path "src\main\java\com\example\ecommerce\model"
-New-Item -ItemType Directory -Force -Path "src\main\java\com\example\ecommerce\repository"
-New-Item -ItemType Directory -Force -Path "src\main\java\com\example\ecommerce\service"
-cd ..
-```
-
----
-
-## 📌 NOTAS IMPORTANTES
-
-1. **Leyenda de iconos:**
-   - ✨ = Archivo NUEVO a crear
-   - 🔄 = Archivo a MODIFICAR
-   - 📋 = Archivo a COPIAR de otro proyecto
-   - ❌ = Archivo a ELIMINAR
-
-2. **Orden de implementación recomendado:**
-   1. Primero ejecutar `cleanup-projects.ps1` para limpiar
-   2. Crear todos los archivos nuevos en r1
-   3. Compilar y verificar r1
-   4. Crear archivos en r2
-   5. Ejecutar `copy-required-files.ps1` para copiar modelos
-   6. Compilar y verificar r2
-
-3. **Verificación:**
-   - Usa `validate-setup.ps1` para verificar que todo esté en su lugar
-   - Revisa que no queden archivos del proyecto original (Instrumento)
-
-4. **El Wallet de Oracle debe estar en:**
-   - `/EcommerceCloudNative_r1/Wallet_EcommerceCloudNative/`
-   - `/EcommerceCloudNative_r2/Wallet_EcommerceCloudNative/`
+# PASO 11: Ver logs (opcional)
+docker-compose logs --tail=50

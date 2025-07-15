@@ -1,13 +1,13 @@
-﻿version: '3.8'
-
-services:
-  # RabbitMQ Service
+﻿services:
+  # ================================
+  # RABBITMQ SERVICES
+  # ================================
   rabbitmq:
     image: rabbitmq:3.12-management
     container_name: ecommerce-rabbitmq
     ports:
-      - "5672:5672"    # AMQP port
-      - "15672:15672"  # Management UI
+      - "5672:5672"
+      - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin123
@@ -22,7 +22,7 @@ services:
       retries: 3
       start_period: 40s
 
-  # Microservicio Principal API
+  # RabbitMQ API Principal
   ecommerce-api:
     image: ecommerce-api:latest
     container_name: ecommerce-springboot
@@ -46,7 +46,7 @@ services:
       retries: 3
       start_period: 40s
 
-  # Microservicio Productor (RabbitMQ)
+  # RabbitMQ Producer
   ecommerce-producer:
     image: ecommerce-producer:latest
     container_name: ecommerce-producer
@@ -70,14 +70,8 @@ services:
     networks:
       - ecommerce-network
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
 
-  # Microservicio Consumidor (RabbitMQ)
+  # RabbitMQ Consumer
   ecommerce-consumer:
     image: ecommerce-consumer:latest
     container_name: ecommerce-consumer
@@ -105,17 +99,132 @@ services:
     networks:
       - ecommerce-network
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8082/actuator/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+
+  # ================================
+  # KAFKA SERVICES
+  # ================================
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: ecommerce-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    networks:
+      - kafka-network
+
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: ecommerce-kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    networks:
+      - kafka-network
+
+  kafka-init:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: kafka-init
+    depends_on:
+      - kafka
+    entrypoint: [ '/bin/sh', '-c' ]
+    command: |
+      "
+      echo 'Esperando a que Kafka esté listo...'
+      sleep 10
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic promociones --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic inventario --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic ventas --replication-factor 1 --partitions 3
+      echo 'Topics creados exitosamente'
+      "
+    networks:
+      - kafka-network
+
+  # Kafka Producer (k1)
+  ecommerce-kafka-producer:
+    image: ecommerce-kafka-producer:latest
+    container_name: ecommerce-kafka-producer
+    build:
+      context: ./EcommerceCloudNative_k1
+      dockerfile: Dockerfile
+    ports:
+      - "8091:8091"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - TNS_ADMIN=/app/Wallet_EcommerceCloudNative
+    depends_on:
+      - kafka-init
+    volumes:
+      - ./EcommerceCloudNative_k1/logs:/app/logs
+    networks:
+      - kafka-network
+    restart: unless-stopped
+
+  # Kafka Consumer 1 (k2)
+  ecommerce-kafka-consumer1:
+    image: ecommerce-kafka-consumer1:latest
+    container_name: ecommerce-kafka-consumer1
+    build:
+      context: ./EcommerceCloudNative_k2
+      dockerfile: Dockerfile
+    ports:
+      - "8092:8092"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - TNS_ADMIN=/app/Wallet_EcommerceCloudNative
+    depends_on:
+      - kafka-init
+      - ecommerce-kafka-producer
+    volumes:
+      - ./EcommerceCloudNative_k2/logs:/app/logs
+    networks:
+      - kafka-network
+    restart: unless-stopped
+
+  # Kafka Consumer 2 (k3)
+  ecommerce-kafka-consumer2:
+    image: ecommerce-kafka-consumer2:latest
+    container_name: ecommerce-kafka-consumer2
+    build:
+      context: ./EcommerceCloudNative_k3
+      dockerfile: Dockerfile
+    ports:
+      - "8093:8093"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - TNS_ADMIN=/app/Wallet_EcommerceCloudNative
+    depends_on:
+      - kafka-init
+      - ecommerce-kafka-producer
+    volumes:
+      - ./EcommerceCloudNative_k3/logs:/app/logs
+    networks:
+      - kafka-network
+    restart: unless-stopped
 
 networks:
   ecommerce-network:
     driver: bridge
+  kafka-network:
+    driver: bridge
 
 volumes:
   rabbitmq_data:
+    driver: local
+  kafka_data:
+    driver: local
+  zookeeper_data:
     driver: local
