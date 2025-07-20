@@ -7,17 +7,17 @@ import { InstrumentoFormComponent } from './features/instrumento-form/instrument
 import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'instrumentos', component: InstrumentosListComponent, canActivate: [AuthGuard] },
   { path: 'instrumento/nuevo', component: InstrumentoFormComponent, canActivate: [AuthGuard] },
   { path: 'instrumento/editar/:id', component: InstrumentoFormComponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: '/dashboard' }
+  { path: '**', redirectTo: '/login' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: false, enableTracing: false })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -14,22 +14,20 @@ export class AuthInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    // Obtener el token
     const token = this.authService.getToken();
+    const isLoginRequest = request.url.includes('/auth/login');
     
-    // Clonar la request y agregar el header de autorización si existe el token
-    if (token) {
+    if (token && !isLoginRequest) {
       request = request.clone({
         setHeaders: {
-          Authorization: token
+          Authorization: `Bearer ${token}`
         }
       });
     }
 
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
-          // Token inválido o expirado
+        if (error.status === 401 && !isLoginRequest) {
           this.authService.logout();
           this.router.navigate(['/login']);
         }

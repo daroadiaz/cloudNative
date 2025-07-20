@@ -1,0 +1,9 @@
+FROM oraclelinux:8-slim
+
+RUN microdnf install -y oracle-instantclient-release-el8 && \
+    microdnf install -y oracle-instantclient-sqlplus oracle-instantclient-basic && \
+    microdnf clean all
+
+WORKDIR /app
+
+CMD ["/bin/bash"]

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:8080/api';
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -17,25 +18,46 @@ export class ApiService {
     });
 
     if (token) {
-      headers = headers.set('Authorization', token);
+      headers = headers.set('Authorization', `Bearer ${token}`);
     }
 
     return headers;
   }
 
-  get<T>(endpoint: string): Observable<T> {
-    return this.http.get<T>(`${this.baseUrl}${endpoint}`, { headers: this.getHeaders() });
+  get<T>(endpoint: string, params?: HttpParams): Observable<T> {
+    return this.http.get<T>(`${this.baseUrl}${endpoint}`, { 
+      headers: this.getHeaders(),
+      params: params 
+    });
   }
 
   post<T>(endpoint: string, data: any): Observable<T> {
-    return this.http.post<T>(`${this.baseUrl}${endpoint}`, data, { headers: this.getHeaders() });
+    return this.http.post<T>(`${this.baseUrl}${endpoint}`, data, { 
+      headers: this.getHeaders() 
+    });
   }
 
   put<T>(endpoint: string, data: any): Observable<T> {
-    return this.http.put<T>(`${this.baseUrl}${endpoint}`, data, { headers: this.getHeaders() });
+    return this.http.put<T>(`${this.baseUrl}${endpoint}`, data, { 
+      headers: this.getHeaders() 
+    });
   }
 
   delete<T>(endpoint: string): Observable<T> {
-    return this.http.delete<T>(`${this.baseUrl}${endpoint}`, { headers: this.getHeaders() });
+    return this.http.delete<T>(`${this.baseUrl}${endpoint}`, { 
+      headers: this.getHeaders() 
+    });
+  }
+
+  getWithCustomUrl<T>(url: string): Observable<T> {
+    return this.http.get<T>(url, { 
+      headers: this.getHeaders() 
+    });
+  }
+
+  postWithCustomUrl<T>(url: string, data: any): Observable<T> {
+    return this.http.post<T>(url, data, { 
+      headers: this.getHeaders() 
+    });
   }
 }

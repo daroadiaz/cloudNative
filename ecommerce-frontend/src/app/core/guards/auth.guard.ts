@@ -17,11 +17,13 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
-    if (this.authService.isAuthenticated()) {
+    const isAuthenticated = this.authService.isAuthenticated();
+    
+    if (isAuthenticated) {
       return true;
     }
 
-    // No autenticado, redirigir al login
+    console.log('Usuario no autenticado, redirigiendo al login...');
     this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }
